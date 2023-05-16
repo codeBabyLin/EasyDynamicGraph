@@ -1,0 +1,86 @@
+createv (n1:City{name:'北京',latitude:116.404,longitude:39.915}) at 1
+createv (n3:City{name:'天津',latitude:117.110,longitude:39.090}) at 1
+createv (n6:City{name:'哈尔滨',latitude:126.410,longitude:45.450}) at 1
+createv (n9:City{name:'北安',latitude:126.300,longitude:48.140}) at 1
+createv (n12:City{name:'鸡西',latitude:130.580,longitude:45.170}) at 1
+createv (n15:City{name:'爱辉',latitude:127.310,longitude:50.100}) at 1
+createv (n18:City{name:'辽源',latitude:125.050,longitude:42.550}) at 1
+createv (n21:City{name:'延吉',latitude:129.290,longitude:42.570}) at 1
+createv (n24:City{name:'锦州',latitude:121.050,longitude:41.070}) at 1
+createv (n27:City{name:'营口',latitude:122.120,longitude:40.410}) at 1
+createv (n30:City{name:'辽阳',latitude:123.100,longitude:41.170}) at 1
+createv (n33:City{name:'呼和浩特',latitude:111.480,longitude:40.490}) at 1
+createv (n36:City{name:'包头',latitude:109.580,longitude:40.350}) at 1
+createv (n39:City{name:'海拉尔',latitude:119.400,longitude:49.150}) at 1
+createv (n42:City{name:'保定',latitude:115.280,longitude:38.520}) at 1
+createv (n45:City{name:'张家口',latitude:114.530,longitude:40.500}) at 1
+createv (n48:City{name:'邯郸',latitude:114.270,longitude:36.350}) at 1
+createv (n51:City{name:'阳泉',latitude:113.360,longitude:37.530}) at 1
+createv (n54:City{name:'侯马',latitude:111.200,longitude:35.370}) at 1
+createv (n57:City{name:'聊城',latitude:115.570,longitude:36.270}) at 1
+createv (n60:City{name:'烟台',latitude:121.200,longitude:37.330}) at 1
+createv (n63:City{name:'南阳',latitude:112.310,longitude:33.010}) at 1
+createv (n66:City{name:'延安',latitude:109.280,longitude:36.360}) at 1
+createv (n69:City{name:'咸阳',latitude:108.420,longitude:34.210}) at 1
+createv (n72:City{name:'汉中',latitude:107.010,longitude:33.030}) at 1
+createv (n75:City{name:'白银',latitude:104.090,longitude:36.410}) at 1
+createv (n78:City{name:'临夏',latitude:103.110,longitude:35.350}) at 1
+createv (n81:City{name:'西宁',latitude:101.450,longitude:36.380}) at 1
+createv (n84:City{name:'乌鲁木齐',latitude:87.360,longitude:43.480}) at 1
+createv (n87:City{name:'若羌',latitude:88.090,longitude:39.000}) at 1
+createv (n90:City{name:'塔城',latitude:83.000,longitude:46.450}) at 1
+createv (n93:City{name:'阿克苏',latitude:80.180,longitude:41.090}) at 1
+createv (n96:City{name:'合肥',latitude:117.180,longitude:31.510}) at 1
+createv (n99:City{name:'马鞍山',latitude:118.280,longitude:31.420}) at 1
+createv (n102:City{name:'屯溪',latitude:118.160,longitude:29.430}) at 1
+createv (n105:City{name:'连云港',latitude:119.120,longitude:34.390}) at 1
+createv (n108:City{name:'扬州',latitude:119.250,longitude:32.230}) at 1
+createv (n111:City{name:'南通',latitude:120.530,longitude:32.030}) at 1
+createv (n114:City{name:'杭州',latitude:120.090,longitude:30.140}) at 1
+createv (n117:City{name:'金华',latitude:119.390,longitude:29.060}) at 1
+createv (n120:City{name:'常德',latitude:111.410,longitude:29.030}) at 1
+createv (n123:City{name:'吉首',latitude:109.430,longitude:28.290}) at 1
+createv (n126:City{name:'黔阳',latitude:110.070,longitude:27.200}) at 1
+createv (n129:City{name:'九江',latitude:115.580,longitude:29.430}) at 1
+createv (n132:City{name:'上饶',latitude:117.580,longitude:28.270}) at 1
+createv (n135:City{name:'萍乡',latitude:113.490,longitude:27.360}) at 1
+createv (n138:City{name:'武汉',latitude:114.210,longitude:30.370}) at 1
+createv (n141:City{name:'成都',latitude:104.050,longitude:30.390}) at 1
+createv (n144:City{name:'温江',latitude:103.550,longitude:30.440}) at 1
+createv (n147:City{name:'马尔康',latitude:102.200,longitude:31.470}) at 1
+createv (n150:City{name:'宜宾',latitude:104.360,longitude:28.460}) at 1
+createv (n153:City{name:'甘孜',latitude:99.580,longitude:31.380}) at 1
+createv (n156:City{name:'涪陵',latitude:107.220,longitude:29.420}) at 1
+createv (n159:City{name:'福州',latitude:119.180,longitude:26.050}) at 1
+createv (n162:City{name:'闽侯',latitude:119.180,longitude:26.000}) at 1
+createv (n165:City{name:'泉州',latitude:118.400,longitude:24.590}) at 1
+createv (n168:City{name:'台北',latitude:121.310,longitude:25.030}) at 1
+createv (n171:City{name:'韶关',latitude:113.400,longitude:24.530}) at 1
+createv (n174:City{name:'海口',latitude:110.200,longitude:20.020}) at 1
+createv (n177:City{name:'柳州',latitude:109.230,longitude:24.190}) at 1
+createv (n180:City{name:'玉林',latitude:110.090,longitude:22.390}) at 1
+createv (n183:City{name:'下关',latitude:100.130,longitude:25.350}) at 1
+createv (n186:City{name:'拉萨',latitude:91.100,longitude:29.400}) at 1
+createv (n189:City{name:'日喀则',latitude:88.530,longitude:29.190}) at 1
+createv (n192:City{name:'多木拉',latitude:82.260,longitude:34.090}) at 1
+
+
+createv (n1)-[r1:Road{cost:2}]->(n3) at 1  //京-> 津
+createv (n3)-[r2:Road{cost:4}]->(n42) at 1  //津-> 保定
+
+createv (n1)-[r3:Road{cost:5}]->(n42) at 1  //京-> 保定
+createv (n1)-[r4:Road{cost:5}]->(n45) at 1  //京-> 张家口
+
+createv (n45)-[r5:Road{cost:5}]->(n42) at 1  //张家口-> 保定
+
+createv (n3)-[r6:Road{cost:4}]->(n60) at 1  //津-> 烟台
+
+createv (n3)-[r7:Road{cost:5}]->(n57) at 1  //津-> 聊城
+
+createv (n60)-[r8:Road{cost:1}]->(n57) at 1  //烟台-> 聊城
+createv (n42)-[r9:Road{cost:6}]->(n57) at 1  //保定-> 聊城
+createv (n42)-[r10:Road{cost:4}]->(n57) at 1  //保定-> 阳泉
+
+createv (n42)-[r11:Road{cost:7}]->(n48) at 1  //保定-> 邯郸
+
+

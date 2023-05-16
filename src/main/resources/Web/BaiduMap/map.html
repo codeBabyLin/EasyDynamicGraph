@@ -1,0 +1,123 @@
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<!-- <div id="allmap" style="width:920px;height:400px;"></div> --><!-- 
+<div id="allmap" style="width:90%;height:80%;top:30px;left:100px;"></div> -->
+<!-- <div id="allmap" style="width:90%;height:80%;top:20%;left:10%;"></div> -->
+<div id="allmap" style="width:90%;height:80%;top:30px;left:100px;"></div>
+<script type="text/javascript" src="neo4j-web.min.js"></script> 
+<script type="text/javascript" src="getData.js"></script> 
+<script type="text/javascript" src="dataProcess.js"></script> 
+<script type="text/javascript" src="//api.map.baidu.com/library/TrackAnimation/src/TrackAnimation_min.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=cTkwuvA89XyA075C1gxzKqLRzSGS9nGV">
+</script>
+
+
+<script type="text/javascript">
+var namePoints = []
+var map = new BMap.Map("allmap");
+
+
+
+function markLine(name){
+var p1 = namePoints[name]
+for(let ps of relations){
+  if(ps[0] == name){
+  var p2 = namePoints[ps[1]]
+  var polyline = new BMap.Polyline([p1,p2], {strokeColor:"blue", strokeWeight:2, strokeOpacity:0.5});
+map.addOverlay(polyline);
+  }
+}
+}
+
+async function markLines(){
+//var map = new BMap.Map("allmap");
+await getRelations()
+
+for(let node of nodes){
+markLine(node[0])
+}
+
+//var polyline = new BMap.Polyline(Points, {strokeColor:"blue", strokeWeight:2, strokeOpacity:0.5});
+//map.addOverlay(polyline);
+}
+
+
+async function markPoint(){
+
+
+map.enableScrollWheelZoom(false);
+
+var point = new BMap.Point(116.404, 39.915);         
+//map.centerAndZoom(new BMap.Point(106.442602,29.433618),36);
+map.centerAndZoom(point,6);
+var marker = new BMap.Marker(point);        // 创建标注   
+map.addOverlay(marker);
+
+await getNodes()
+addOptions()
+
+var i = 0
+for (let m of nodes){
+var lat = parseFloat(m[1])
+var lon = parseFloat(m[2])
+i = i + 1
+
+
+var point = new BMap.Point(lat, lon)
+//if(i%10 == 0) Points.push(point)
+//cityIdPoint[parseInt(m[3])] = point
+//cityNameId[m[0]] = parseInt(m[3])
+namePoints[m[0]] = point
+var marker = new BMap.Marker(point);        // 创建标注   
+map.addOverlay(marker);
+}
+
+}
+
+//var point = new BMap.Point(116.404, 39.915);         
+//map.centerAndZoom(new BMap.Point(106.442602,29.433618),36);
+//map.centerAndZoom(point,6);
+//var marker = new BMap.Marker(point);        // 创建标注   
+//map.addOverlay(marker);
+async function run(){
+ await markPoint()
+ await markLines()
+ //markPath('天津', '海口',9)
+}
+run()
+//var point = new BMap.Point(116.404, 39.915);   
+//var marker = new BMap.Marker(point);        // 创建标注   
+//map.addOverlay(marker);    
+//var scaleCtrl = new BMap.ScaleControl();  // 添加比例尺控件
+//map.addControl(scaleCtrl);
+//var zoomCtrl = new BMap.ZoomControl();  // 添加缩放控件
+//map.addControl(zoomCtrl);
+var cityCtrl = new BMap.CityListControl();  // 添加城市列表控件
+map.addControl(cityCtrl);
+
+var local = new BMap.LocalSearch(map, {
+	renderOptions:{map: map}
+});
+//var point = new BMap.Point(116.404, 39.915);   
+//var marker = new BMap.Marker(point);        // 创建标注   
+//map.addOverlay(marker);  
+//local.search("北京");
+//logPrint()
+
+//console.log(local)
+
+</script>
+
+ <div id="selction" style="width:90%;height:80%;margin:5%" />
+起点:<select name="startNode" id="startNode" >
+</select>
+终点:<select name="endNode" id="endNode">
+</select>
+时间:<input type="text" id="version"/>
+<input type="submit" value="Query" onclick="onQuery()"/>
+
+
+
+
+</html>

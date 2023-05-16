@@ -1,0 +1,17 @@
+createv (n1)-[r1:Road{cost:2}]->(n3) at 1  //京-> 津
+createv (n3)-[r2:Road{cost:4}]->(n42) at 1  //津-> 保定
+
+createv (n1)-[r3:Road{cost:5}]->(n42) at 1  //京-> 保定
+createv (n1)-[r4:Road{cost:5}]->(n45) at 1  //京-> 张家口
+
+createv (n45)-[r5:Road{cost:5}]->(n42) at 1  //张家口-> 保定
+
+createv (n3)-[r6:Road{cost:4}]->(n60) at 1  //津-> 烟台
+
+createv (n3)-[r7:Road{cost:5}]->(n57) at 1  //津-> 聊城
+
+createv (n60)-[r8:Road{cost:1}]->(n57) at 1  //烟台-> 聊城
+createv (n42)-[r9:Road{cost:6}]->(n57) at 1  //保定-> 聊城
+createv (n42)-[r10:Road{cost:4}]->(n57) at 1  //保定-> 阳泉
+
+createv (n42)-[r11:Road{cost:7}]->(n48) at 1  //保定-> 邯郸
