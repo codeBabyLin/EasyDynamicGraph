@@ -56,6 +56,8 @@ public class DynamicShortestPathProcTest extends BaseTest{
                 1652.0, 2392.0, 2979.0);
         final List<String> actualNode = new ArrayList<String>();
         final List<Double> actualDistance = new ArrayList<Double>();
+
+        long t1 = System.currentTimeMillis();
         graphDb.execute(
                         "MATCH (start:Node{name:'SINGAPORE'}), (end:Node{name:'CHIBA'}) " +
                                 "CALL codebaby.shortestPath.astar.stream(start, end, 'cost',7) " +
@@ -69,6 +71,8 @@ public class DynamicShortestPathProcTest extends BaseTest{
                     actualDistance.add(distance);
                     return true;
                 });
+        long t2 = System.currentTimeMillis();
+        System.out.println(t2-t1);
        // assertArrayEquals(expectedNode.toArray(), actualNode.toArray());
        // assertArrayEquals(expectedDistance.toArray(), actualDistance.toArray());
 

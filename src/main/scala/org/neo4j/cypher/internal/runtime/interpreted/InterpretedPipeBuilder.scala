@@ -452,6 +452,8 @@ case class InterpretedPipeBuilder(recurse: LogicalPlan => Pipe,
 
       case Union(_, _) =>
         UnionPipe(lhs, rhs)(id = id)
+      case Exception(_,_) => ExceptionPipe(lhs,rhs)(id=id)
+      case Intersection(_,_)=> IntersectionPipe(lhs,rhs)(id=id)
 
       case TriadicSelection(_, _, positivePredicate, sourceId, seenId, targetId) =>
         TriadicSelectionPipe(positivePredicate, lhs, sourceId, seenId, targetId, rhs)(id = id)

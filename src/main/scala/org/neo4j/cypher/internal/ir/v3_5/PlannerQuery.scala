@@ -256,6 +256,25 @@ case class RegularPlannerQuery(queryGraph: QueryGraph = QueryGraph.empty,
   }
 }
 
-case class UnionQuery(queries: Seq[PlannerQuery], distinct: Boolean, returns: Seq[String], periodicCommit: Option[PeriodicCommit]) {
+
+trait UnionQuery{
+  def readOnly: Boolean
+}
+
+case class UnionTQuery(queries: Seq[PlannerQuery], distinct: Boolean, returns: Seq[String], periodicCommit: Option[PeriodicCommit]) extends UnionQuery {
+  def readOnly: Boolean = queries.forall(_.readOnly)
+}
+
+/*case class ExceptQuery extends UnionQuery {
+
+}*/
+
+case class ExceptQuery(queries: Seq[PlannerQuery], distinct: Boolean, returns: Seq[String], periodicCommit: Option[PeriodicCommit]) extends
+  UnionQuery{
+  def readOnly: Boolean = queries.forall(_.readOnly)
+}
+
+case class IntersectQuery(queries: Seq[PlannerQuery], distinct: Boolean, returns: Seq[String], periodicCommit: Option[PeriodicCommit]) extends
+  UnionQuery{
   def readOnly: Boolean = queries.forall(_.readOnly)
 }

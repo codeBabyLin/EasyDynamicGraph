@@ -188,3 +188,107 @@ sealed trait Union extends QueryPart with SemanticAnalysisTooling {
 
 final case class UnionAll(part: QueryPart, query: SingleQuery)(val position: InputPosition) extends Union
 final case class UnionDistinct(part: QueryPart, query: SingleQuery)(val position: InputPosition) extends Union
+
+final case class Intersect(part: QueryPart, query: SingleQuery)(val position: InputPosition) extends Intersection
+final case class Exception(part: QueryPart, query: SingleQuery)(val position: InputPosition) extends Except
+
+
+sealed trait Intersection extends QueryPart with SemanticAnalysisTooling {
+  def part: QueryPart
+  def query: SingleQuery
+
+  def returnColumns = query.returnColumns
+
+  def containsUpdates:Boolean = part.containsUpdates || query.containsUpdates
+
+  def semanticCheck: SemanticCheck =
+    checkUnionAggregation chain
+      withScopedState(part.semanticCheck) chain
+      withScopedState(query.semanticCheck) chain
+      checkColumnNamesAgree
+
+  private def checkColumnNamesAgree: SemanticCheck = (state: SemanticState) => {
+    val rootScope: Scope = state.currentScope.scope
+
+    // UNION queries form a chain in the shape of a reversed linked list.
+    // Therefore, the second scope is always a shallow scope, where the last one corresponds to the RETURN clause.
+    // The first one may either be another UNION query part or a single query.
+    val first :: second :: Nil = rootScope.children
+    val newFirst = part match {
+      case _: Intersection => // Union query parts always have two child scopes.
+        val _ :: newFirst :: Nil = first.children
+        newFirst
+      case _ => first
+    }
+    val errors = if (newFirst.children.last.symbolNames == second.children.last.symbolNames) {
+      Seq.empty
+    } else {
+      Seq(SemanticError("All sub queries in an Intersection must have the same column names", position))
+    }
+    semantics.SemanticCheckResult(state, errors)
+  }
+
+  private def checkUnionAggregation: SemanticCheck = (part, this) match {
+    case (_: SingleQuery, _)                  => None
+    case (_: Intersection, _: Intersection)           => None
+    case (_: Intersection, _: Intersection) => None
+    case _                                    => Some(SemanticError("Invalid combination of UNION and UNION ALL", position))
+  }
+
+  def unionedQueries: Seq[SingleQuery] = unionedQueries(Vector.empty)
+  private def unionedQueries(accum: Seq[SingleQuery]): Seq[SingleQuery] = part match {
+    case q: SingleQuery => accum :+ query :+ q
+    case u: Intersection       => u.unionedQueries(accum :+ query)
+  }
+}
+
+sealed trait Except extends QueryPart with SemanticAnalysisTooling {
+  def part: QueryPart
+  def query: SingleQuery
+
+  def returnColumns = query.returnColumns
+
+  def containsUpdates:Boolean = part.containsUpdates || query.containsUpdates
+
+  def semanticCheck: SemanticCheck =
+    checkUnionAggregation chain
+      withScopedState(part.semanticCheck) chain
+      withScopedState(query.semanticCheck) chain
+      checkColumnNamesAgree
+
+  private def checkColumnNamesAgree: SemanticCheck = (state: SemanticState) => {
+    val rootScope: Scope = state.currentScope.scope
+
+    // UNION queries form a chain in the shape of a reversed linked list.
+    // Therefore, the second scope is always a shallow scope, where the last one corresponds to the RETURN clause.
+    // The first one may either be another UNION query part or a single query.
+    val first :: second :: Nil = rootScope.children
+    val newFirst = part match {
+      case _: Except => // Union query parts always have two child scopes.
+        val _ :: newFirst :: Nil = first.children
+        newFirst
+      case _ => first
+    }
+    val errors = if (newFirst.children.last.symbolNames == second.children.last.symbolNames) {
+      Seq.empty
+    } else {
+      Seq(SemanticError("All sub queries in an Except must have the same column names", position))
+    }
+    semantics.SemanticCheckResult(state, errors)
+  }
+
+  private def checkUnionAggregation: SemanticCheck = (part, this) match {
+    case (_: SingleQuery, _)                  => None
+    case (_: Except, _: Except)           => None
+    case (_: Except, _: Except) => None
+    case _                                    => Some(SemanticError("Invalid combination of UNION and UNION ALL", position))
+  }
+
+  def unionedQueries: Seq[SingleQuery] = unionedQueries(Vector.empty)
+  private def unionedQueries(accum: Seq[SingleQuery]): Seq[SingleQuery] = part match {
+    case q: SingleQuery => accum :+ query :+ q
+    case u: Except       => u.unionedQueries(accum :+ query)
+  }
+}
+
+

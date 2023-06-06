@@ -29,7 +29,7 @@ trait Query extends Parser
     )
 
   def RegularQuery: Rule1[ast.Query] = rule {
-    SingleQuery ~ zeroOrMore(WS ~ Union) ~~>> (ast.Query(None, _))
+    SingleQuery ~ zeroOrMore(WS ~ Union|Except|Intersection) ~~>> (ast.Query(None, _))
   }
 
   def SingleQuery: Rule1[ast.SingleQuery] = rule {
@@ -70,4 +70,14 @@ trait Query extends Parser
     keyword("UNION ALL") ~>> position ~~ SingleQuery ~~> ((q: ast.QueryPart, p, sq) => ast.UnionAll(q, sq)(p))
       | keyword("UNION") ~>> position ~~ SingleQuery ~~> ((q: ast.QueryPart, p, sq) => ast.UnionDistinct(q, sq)(p))
   )
+  def Intersection: ReductionRule1[ast.QueryPart, ast.QueryPart] = rule("Intersection")(
+    //keyword("UNION ALL") ~>> position ~~ SingleQuery ~~> ((q: ast.QueryPart, p, sq) => ast.UnionAll(q, sq)(p))
+      keyword("Intersection") ~>> position ~~ SingleQuery ~~> ((q: ast.QueryPart, p, sq) => ast.Intersect(q, sq)(p))
+  )
+
+  def Except: ReductionRule1[ast.QueryPart, ast.QueryPart] = rule("Except")(
+    //keyword("UNION ALL") ~>> position ~~ SingleQuery ~~> ((q: ast.QueryPart, p, sq) => ast.UnionAll(q, sq)(p))
+    keyword("Except") ~>> position ~~ SingleQuery ~~> ((q: ast.QueryPart, p, sq) => ast.Exception(q, sq)(p))
+  )
+
 }
