@@ -17,7 +17,7 @@ class CypherPlusTest extends BaseTest{
     val cy1 = "createv(n:student{name:'JoeJoe',age:23}) at v1=5 and v2=5 return n"
     val cy2 = "createv(n:student{name:'Baby',age:23}) at v1=4 and v2=4 return n"
     val cy3 = "createv(n:student{name:'loli',age:23}) at v1=4 and v2=4 return n"
-    val cy4 = "matchTime(n) timerange v=5 or v=4 return n except matchTime(n) timerange v=4 return n"
+    val cy4 = "matchTime(n) timerange v=5 or v=4 return n intersection matchTime(n) timerange v=4 return n"
 
     var tx = graphDb.beginTx()
     graphDb.execute(cy1)

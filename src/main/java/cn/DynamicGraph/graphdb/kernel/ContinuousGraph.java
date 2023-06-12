@@ -190,4 +190,33 @@ public class ContinuousGraph<Node,Relation> {
 
     //Iterator<Node> NodesDelta(Version v1, Version v2);
     //Iterator<Relation> RelationsDelta(Version v1, Version v2);
+
+
+
+    public ContinuousGraph subGraph(long vStart, long vEnd){
+        ContinuousGraph<Node,Relation> subGraph = new ContinuousGraph<>();
+        Iterator<Node> nodesIter = this.basicGraph.AllNodes();
+        while(nodesIter.hasNext()){
+            Node node = nodesIter.next();
+            long s = this.nodeVersionStore.getNodeCreateVersion(node);
+            long e = this.nodeVersionStore.getNodeDeleteVersion(node);
+            if(s<=vStart && vEnd<=e){
+                subGraph.addNode(node,s);
+                subGraph.deleteNode(node,e);
+            }
+        }
+        Iterator<Relation> relIter = this.basicGraph.AllRelations();
+        while(relIter.hasNext()){
+            Relation relation = relIter.next();
+            long s = this.relationVersionStore.getRelationCreateVersion(relation);
+            long e = this.relationVersionStore.getRelationDeleteVersion(relation);
+            if(s<=vStart && vEnd<=e){
+                subGraph.addRelation(relation,s);
+                subGraph.deleteRelation(relation,e);
+            }
+        }
+        return subGraph;
+    }
+
+
 }
