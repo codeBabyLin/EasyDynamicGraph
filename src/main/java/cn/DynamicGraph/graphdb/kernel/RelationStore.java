@@ -20,6 +20,11 @@ public class RelationStore<Relation> {
         return this.relaions.iterator();
     }
 
+
+    public boolean existRelation(Relation r){
+        return this.relaions.contains(r);
+    }
+
     public RelationStore<Relation> copy(){
         RelationStore<Relation> relationStoreStore = new RelationStore<Relation>();
        this.relaions.forEach(new Consumer<Relation>() {

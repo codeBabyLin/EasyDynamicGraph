@@ -96,7 +96,7 @@ case class QueryPlanner(planSingleQuery: SingleQueryPlanner = PlanSingleQuery())
       case ExceptQuery(queries, distinct, _, periodicCommitHint) =>
         val (plan, newContext) = planQueries(queries, distinct, context, idGen)
 
-        val newPlan = Exception(plan.rhs.get,plan.lhs.get)(idGen)
+        val newPlan = Except(plan.rhs.get,plan.lhs.get)(idGen)
         val pQ = newContext.planningAttributes.solveds.get(plan.id)
         newContext.planningAttributes.solveds.set(newPlan.id,pQ)
 

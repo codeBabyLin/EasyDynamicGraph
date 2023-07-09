@@ -1,7 +1,7 @@
+package common;
+
 import org.junit.Test;
-import org.neo4j.graphdb.facade.GraphDatabaseFacadeFactory;
 import org.neo4j.graphdb.factory.GraphDatabaseFactory;
-import org.neo4j.server.web.Jetty9WebServer;
 
 import java.io.File;
 

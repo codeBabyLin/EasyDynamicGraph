@@ -1,3 +1,4 @@
+import common.BaseTest
 import org.junit.Test
 import org.neo4j.graphdb.factory.GraphDatabaseFactory
 

@@ -104,6 +104,27 @@ public class ContinuousGraph<Node,Relation> {
         this.relationVersionStore.setRelationDeleteVersion(relation,version);
     }
 
+    public Iterator<Node> AllNodes(){
+        return this.basicGraph.AllNodes();
+    }
+    public Iterator<Relation> AllRelations(){
+        return this.basicGraph.AllRelations();
+    }
+    public long getNodeCreateVersion(Node node){
+        return this.nodeVersionStore.getNodeCreateVersion(node);
+    }
+    public long getNodeDeleteVersion(Node node){
+        return this.nodeVersionStore.getNodeDeleteVersion(node);
+    }
+    public long getRelationCreateVersion(Relation relation){
+        return this.relationVersionStore.getRelationCreateVersion(relation);
+    }
+    public long getRelationDeleteVersion(Relation relation){
+        return this.relationVersionStore.getRelationDeleteVersion(relation);
+    }
+
+
+
 
     public Iterator<Node> AllNodesByVersion(Long version){
         Iterator<Node> it = this.basicGraph.AllNodes();
@@ -216,6 +237,14 @@ public class ContinuousGraph<Node,Relation> {
             }
         }
         return subGraph;
+    }
+
+    //exists node or relation
+    public boolean existNode(Node node){
+        return this.basicGraph.existNode(node);
+    }
+    public boolean existRelation(Relation relation){
+        return this.basicGraph.existRelation(relation);
     }
 
 

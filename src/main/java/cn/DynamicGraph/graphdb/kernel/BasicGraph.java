@@ -49,6 +49,13 @@ public class BasicGraph<Node,Relation> {
         return g;
     }
 
+    public boolean existNode(Node node){
+        return this.nodeStore.existNode(node);
+    }
+    public boolean existRelation(Relation relation){
+        return  this.relationStore.existRelation(relation);
+    }
+
     //graph operations
 
 

@@ -20,6 +20,10 @@ public class NodeStore<Node> {
         return this.nodes.iterator();
     }
 
+    public boolean existNode(Node node){
+      return this.nodes.contains(node);
+    }
+
     public NodeStore<Node> copy(){
         NodeStore<Node> nodeStore = new NodeStore<Node>();
         this.nodes.forEach(new Consumer<Node>() {

@@ -1,3 +1,5 @@
+package common;
+
 import org.junit.After;
 import org.junit.Before;
 import org.neo4j.graphdb.GraphDatabaseService;
@@ -7,8 +9,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class BaseTest {
-    String path = "F:\\EasyDynamicGraphStore";
-    GraphDatabaseService graphDb;
+    public String path = "F:\\EasyDynamicGraphStore";
+    public GraphDatabaseService graphDb;
 
     public void delFile(File file){
         if(file.isDirectory()){

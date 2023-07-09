@@ -1,3 +1,5 @@
+package common;
+
 import cn.DynamicGraph.graphdb.BatchGraphImpl;
 import cn.DynamicGraph.graphdb.Interface.BatchGraphService;
 import org.junit.Test;

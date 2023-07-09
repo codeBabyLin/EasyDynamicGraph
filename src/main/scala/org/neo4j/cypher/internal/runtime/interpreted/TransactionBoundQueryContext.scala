@@ -1146,7 +1146,7 @@ sealed class TransactionBoundQueryContext(val transactionalContext: Transactiona
     private var target: Long = NO_ID
 
     override def relationshipVisit[EXCEPTION <: Exception](relationshipId: Long,
-                                                           visitor: RelationshipVisitor[EXCEPTION]): Boolean = {
+                                                        visitor: RelationshipVisitor[EXCEPTION]): Boolean = {
       visitor.visit(relationshipId, typeId, source, target)
       true
     }

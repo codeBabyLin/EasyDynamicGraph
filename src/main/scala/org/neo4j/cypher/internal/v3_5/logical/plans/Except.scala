@@ -25,7 +25,7 @@ import org.neo4j.cypher.internal.v3_5.util.attribution.IdGen
 /**
  * Produce first the 'left' rows, and then the 'right' rows. This operator does not guarantee row uniqueness.
  */
-case class Exception(left: LogicalPlan, right: LogicalPlan)(implicit idGen: IdGen) extends LogicalPlan(idGen) with LazyLogicalPlan {
+case class Except(left: LogicalPlan, right: LogicalPlan)(implicit idGen: IdGen) extends LogicalPlan(idGen) with LazyLogicalPlan {
 
   val lhs = Some(left)
   val rhs = Some(right)
