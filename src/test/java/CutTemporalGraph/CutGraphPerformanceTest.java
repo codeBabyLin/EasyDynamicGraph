@@ -124,8 +124,10 @@ public class CutGraphPerformanceTest {
 
         Reinforcement rel = new Reinforcement(stateList,eval);
 
-        for(int i = 1;i<=9;i++){
+        for(int i = 1;i<=8;i++){
+            System.out.printf("-----------第%d轮学习开始--------------\n",i);
             rel.stepForward();
+            System.out.printf("-----------第%d轮学习开始--------------\n",i);
         }
         Iterator<SecGraphState> iter = rel.traverseState();
         while(iter.hasNext()){
