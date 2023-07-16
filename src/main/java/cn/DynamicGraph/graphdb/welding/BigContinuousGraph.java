@@ -1,6 +1,8 @@
 package cn.DynamicGraph.graphdb.welding;
 
+import cn.DynamicGraph.graphdb.kernel.BasicGraph;
 import cn.DynamicGraph.graphdb.kernel.ContinuousGraph;
+import cn.DynamicGraph.graphdb.welding.cache.CacheInterface;
 
 import java.io.File;
 import java.util.HashSet;
@@ -15,12 +17,21 @@ public class BigContinuousGraph{
     private IdVersionStore relationIdCStore;
     private IdVersionStore relationIdDStore;
     private Transformer transformer;
+    private CacheInterface cache;
     public BigContinuousGraph(String dir){
         this.nodeIdCStore = new IdVersionStore(new File(dir,"nodeIdCreate").getAbsolutePath());
         this.nodeIdDStore = new IdVersionStore(new File(dir,"nodeIdDelete").getAbsolutePath());
         this.relationIdCStore = new IdVersionStore(new File(dir,"relationIdCreate").getAbsolutePath());
         this.relationIdDStore = new IdVersionStore(new File(dir,"relationIdDelete").getAbsolutePath());
         this.transformer = new Transformer();
+    }
+    public BigContinuousGraph(String dir, CacheInterface cache){
+        this.nodeIdCStore = new IdVersionStore(new File(dir,"nodeIdCreate").getAbsolutePath());
+        this.nodeIdDStore = new IdVersionStore(new File(dir,"nodeIdDelete").getAbsolutePath());
+        this.relationIdCStore = new IdVersionStore(new File(dir,"relationIdCreate").getAbsolutePath());
+        this.relationIdDStore = new IdVersionStore(new File(dir,"relationIdDelete").getAbsolutePath());
+        this.transformer = new Transformer();
+        this.cache = cache;
     }
 
     public boolean existNode(long node){
@@ -142,6 +153,24 @@ public class BigContinuousGraph{
     private boolean isOk(long vs,long ve,long ds,long de){
         return ds<=vs && (ve<=de);
     }
+
+    public Iterator<Long> AllNodesByVersionCache(Long version){
+        long v = version;
+        int v1 = (int) v;
+        if(this.cache.exist(v1)){
+            return this.cache.hitGraph(v1).AllNodes();
+        }
+        else{
+            BasicGraph<Long,Long> graph = new BasicGraph<>();
+            Iterator<Long> iter = AllNodesByVersion(version);
+            while(iter.hasNext()){
+                graph.addNode(iter.next());
+            }
+            return this.cache.hitGraph(v1).AllNodes();
+        }
+
+    }
+
     public Iterator<Long> AllNodesByVersion(Long version){
         Iterator<byte[]> iter = this.nodeIdCStore.all();
         return new Iterator<Long>() {
